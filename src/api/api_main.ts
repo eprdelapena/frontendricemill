@@ -47,7 +47,8 @@ class NextClient {
   client: Axios;
   constructor() {
     const instance = axios.create({
-      baseURL: `${EParamsDefault.IPAddress}:3001`,
+      baseURL: process.env.NEXT_PUBLIC_API_URL || `${EParamsDefault.IPAddress}:3001`,
+      // baseURL: `${EParamsDefault.IPAddress}:3001`,
       headers: {
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Origin":

@@ -79,7 +79,7 @@ const CLendingTable = () => {
           </p>
         </div>
         <button
-          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-black"
+          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl border-[1px] border-black"
           onClick={() => {
             setAddLendingModal(true);
           }}
@@ -90,7 +90,7 @@ const CLendingTable = () => {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white border-4 border-black rounded-2xl shadow-2xl p-8 mb-8 animate-slide-up">
+      <div className="bg-white border-[1px] border-black rounded-2xl shadow-2xl p-8 mb-8 animate-slide-up">
         <div className="flex items-center gap-3 mb-6">
           <Filter className="h-6 w-6 text-orange-500 animate-bounce" />
           <h3 className="text-xl font-bold text-black">
@@ -106,7 +106,7 @@ const CLendingTable = () => {
               Search Category
             </label>
             <select
-              className="w-full border-3 border-black rounded-xl p-3 text-black bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
+              className="w-full border-[1px] border-black rounded-xl p-3 text-black bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
               value={payload.searchCategory}
               onChange={(e) => {
                 setPayload((prev) => ({
@@ -137,7 +137,7 @@ const CLendingTable = () => {
               <input
                 type="text"
                 placeholder={`Search by ${payload.searchCategory === EParamsDefault.transactionid ? "transaction ID" : "full name"}`}
-                className="w-full border-3 border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium placeholder-gray-500"
+                className="w-full bprder-[1px] border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium placeholder-gray-500"
                 onChange={(e) => {
                   setPayload((prev) => ({
                     ...prev,
@@ -156,7 +156,7 @@ const CLendingTable = () => {
               Payment Status
             </label>
             <select
-              className="w-full border-3 border-black rounded-xl p-3 text-black bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
+              className="w-full border-[1px] border-black rounded-xl p-3 text-black bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
               value={payload.searchStatus}
               onChange={(e) => {
                 setPayload((prev) => ({
@@ -183,7 +183,7 @@ const CLendingTable = () => {
             </label>
             <input
               type="date"
-              className="w-full border-3 border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
+              className="w-full border-[1px] border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
               onChange={(e) => {
                 setPayload((prev) => ({
                   ...prev,
@@ -202,7 +202,7 @@ const CLendingTable = () => {
             </label>
             <input
               type="date"
-              className="w-full border-3 border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
+              className="w-full border-[1px] border-black rounded-xl p-3 text-black focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium"
               onChange={(e) => {
                 setPayload((prev) => ({
                   ...prev,
@@ -216,7 +216,7 @@ const CLendingTable = () => {
       </div>
 
       {/* Table Section - Modified for auto-adjusting columns */}
-      <div className="bg-white border-4 border-black rounded-2xl shadow-2xl overflow-hidden mb-8 animate-slide-up-delay">
+      <div className="bg-white border-[1px] border-black rounded-2xl shadow-2xl overflow-hidden mb-8 animate-slide-up-delay">
         {/* This wrapper ensures horizontal scrolling */}
         <div
           className="overflow-x-auto"
@@ -316,7 +316,7 @@ const CLendingTable = () => {
       {/* Pagination */}
       <div className="flex justify-center animate-fade-in-up">
         <nav
-          className="inline-flex rounded-2xl shadow-2xl border-4 border-black overflow-hidden"
+          className="inline-flex rounded-2xl shadow-2xl border-[1px] border-black overflow-hidden"
           aria-label="Pagination"
         >
           <button

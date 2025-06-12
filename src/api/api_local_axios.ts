@@ -7,7 +7,7 @@ export class AxiosService {
   public static token: string;
 
   constructor() {
-    const baseURL = `${EParamsDefault.IPAddress}:3000`;
+    const baseURL = process.env.NEXT_PUBLIC_NEXT_API_URL || `${EParamsDefault.IPAddress}:3000`;
 
     const client = axios.create({
       baseURL: baseURL,

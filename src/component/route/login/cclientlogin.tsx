@@ -72,7 +72,7 @@ const CClientLogin = () => {
                   }}
                   required
                   placeholder="Enter Administrator ID"
-                  className="w-full pl-12 pr-4 py-4 text-gray-800 bg-gray-50 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-orange-500/30 focus:border-orange-500 hover:border-gray-300 transition-all duration-300 text-lg font-medium placeholder:text-gray-400 placeholder:font-normal"
+                  className="w-full pl-12 pr-4 py-4 text-gray-800 bg-gray-50 rounded-2xl border-[1px] border-gray-200 focus:outline-none focus:ring-3 focus:ring-orange-500/30 focus:border-orange-500 hover:border-gray-300 transition-all duration-300 text-lg font-medium placeholder:text-gray-400 placeholder:font-normal"
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ const CClientLogin = () => {
                   }}
                   required
                   placeholder="Enter Security Password"
-                  className="w-full pl-12 pr-4 py-4 text-gray-800 bg-gray-50 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-orange-500/30 focus:border-orange-500 hover:border-gray-300 transition-all duration-300 text-lg font-medium placeholder:text-gray-400 placeholder:font-normal"
+                  className="w-full pl-12 pr-4 py-4 text-gray-800 bg-gray-50 rounded-2xl border-[1px] border-gray-200 focus:outline-none focus:ring-3 focus:ring-orange-500/30 focus:border-orange-500 hover:border-gray-300 transition-all duration-300 text-lg font-medium placeholder:text-gray-400 placeholder:font-normal"
                 />
               </div>
             </div>

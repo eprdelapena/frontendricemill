@@ -25,7 +25,7 @@ const CPostInstallmentModal = (props: {
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative border-4 border-black animate-slide-up flex flex-col max-h-[95vh]">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative border-[1px] border-black animate-slide-up flex flex-col max-h-[95vh]">
         {/* Header */}
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-6 rounded-t-2xl flex-shrink-0">
           <div className="flex items-center justify-between">
@@ -63,7 +63,7 @@ const CPostInstallmentModal = (props: {
               </label>
               <div className="relative">
                 <input
-                  className="w-full p-4 pl-12 rounded-2xl text-black border-3 border-black bg-gray-50 focus:bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium placeholder:text-gray-400 text-lg"
+                  className="w-full p-4 pl-12 rounded-2xl text-black border-[1px] border-black bg-gray-50 focus:bg-white focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition-all duration-300 hover:shadow-lg font-medium placeholder:text-gray-400 text-lg"
                   value={payload?.payment || ""}
                   placeholder="Enter lending amount..."
                   onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,7 @@ const CPostInstallmentModal = (props: {
         <div className="bg-white px-8 py-6 border-t-4 border-black flex justify-end space-x-4 flex-shrink-0 rounded-b-2xl">
           <button
             type="button"
-            className="px-8 py-4 bg-white text-gray-700 rounded-2xl hover:bg-gray-100 transition-all duration-200 font-bold border-4 border-gray-400 hover:border-gray-600 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
+            className="px-8 py-4 bg-white text-gray-700 rounded-2xl hover:bg-gray-100 transition-all duration-200 font-bold border-[1px] border-gray-400 hover:border-gray-600 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
             onClick={() => {
               setPostInstallmentModal(false);
             }}
@@ -94,7 +94,7 @@ const CPostInstallmentModal = (props: {
           </button>
           <button
             type="button"
-            className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 font-bold shadow-xl hover:shadow-2xl border-4 border-black transform hover:scale-105 flex items-center gap-3 text-lg"
+            className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 font-bold shadow-xl hover:shadow-2xl border-[1px] border-black transform hover:scale-105 flex items-center gap-3 text-lg"
             onClick={() => {
                 postInstallment();
             }}

@@ -41,7 +41,7 @@ const CViewInstallmentModal = (props: {
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl relative border-4 border-black animate-slide-up flex flex-col max-h-[95vh]">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl relative border-[1px] border-black animate-slide-up flex flex-col max-h-[95vh]">
         {/* Header */}
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-6 rounded-t-2xl flex-shrink-0">
           <div className="flex items-center justify-between">
@@ -65,7 +65,7 @@ const CViewInstallmentModal = (props: {
 
         {/* Table Content - Scrollable */}
         <div className="flex-1 overflow-y-auto p-6">
-          <div className="rounded-2xl border-3 border-black overflow-hidden shadow-lg">
+          <div className="rounded-2xl border-[1px] border-black overflow-hidden shadow-lg">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -138,7 +138,7 @@ const CViewInstallmentModal = (props: {
 
           {/* Summary Section */}
           {installmentList && installmentList.length > 0 && (
-            <div className="mt-6 bg-orange-50 rounded-2xl border-3 border-black p-6 shadow-lg animate-fade-in-delay-6">
+            <div className="mt-6 bg-orange-50 rounded-2xl border-[1px] border-black p-6 shadow-lg animate-fade-in-delay-6">
               <div className="flex justify-between items-center">
                 <div>
                   <h4 className="text-lg font-bold">Total Installments</h4>
@@ -162,7 +162,7 @@ const CViewInstallmentModal = (props: {
         <div className="bg-white px-8 py-6 border-t-4 border-black flex justify-end space-x-4 flex-shrink-0 rounded-b-2xl">
           <button
             type="button"
-            className="px-8 py-4 bg-white text-gray-700 rounded-2xl hover:bg-gray-100 transition-all duration-200 font-bold border-4 border-gray-400 hover:border-gray-600 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
+            className="px-8 py-4 bg-white text-gray-700 rounded-2xl hover:bg-gray-100 transition-all duration-200 font-bold border-[1px] border-gray-400 hover:border-gray-600 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
             onClick={() => {
               setViewInstallmentModal(false)
             }}
