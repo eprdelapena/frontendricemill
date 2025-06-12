@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { TParamsEditInstallment, TUserSession } from "@/schema/main_schema";
+import { TParamsInstallmentEdit, TUserSession } from "@/schema/main_schema";
 import client from "@/api/api_main";
 import { EAPIStatusCodes } from "@/enum/main_enum";
 import { getServerSession } from "next-auth";
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       session: (session as unknown as { user: TUserSession }).user.token,
     });
 
-    const body: TParamsEditInstallment = await req.json();
+    const body: TParamsInstallmentEdit = await req.json();
     const response = await client.mainEditInstallment(body, config);
 
     return NextResponse.json(response?.data, { status: 200 });

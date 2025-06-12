@@ -15,32 +15,31 @@ import { EParamsDefault } from "@/enum/main_enum";
 import Swal from "sweetalert2";
 import useV1GetLogs from "@/hooks/api_hooks/usev1getlogs";
 
-  const quantityMap: Record<string, string> = {
-    quantityxxs: "XXS",
-    quantityxs: "XS",
-    quantitys: "S",
-    quantitym: "M",
-    quantityl: "L",
-    quantityxl: "XL",
-    quantityxxl: "XXL",
-    quantity5: "5.0",
-    quantity55: "5.5",
-    quantity6: "6.0",
-    quantity65: "6.5",
-    quantity7: "7.0",
-    quantity75: "7.5",
-    quantity8: "8.0",
-    quantity85: "8.5",
-    quantity9: "9.0",
-    quantity95: "9.5",
-    quantity100: "10.0",
-    quantity105: "10.5",
-    quantity110: "11.0",
-    quantity115: "11.5",
-    quantity120: "12.0",
-    quantitydefault: "default",
-  };
-
+const quantityMap: Record<string, string> = {
+  quantityxxs: "XXS",
+  quantityxs: "XS",
+  quantitys: "S",
+  quantitym: "M",
+  quantityl: "L",
+  quantityxl: "XL",
+  quantityxxl: "XXL",
+  quantity5: "5.0",
+  quantity55: "5.5",
+  quantity6: "6.0",
+  quantity65: "6.5",
+  quantity7: "7.0",
+  quantity75: "7.5",
+  quantity8: "8.0",
+  quantity85: "8.5",
+  quantity9: "9.0",
+  quantity95: "9.5",
+  quantity100: "10.0",
+  quantity105: "10.5",
+  quantity110: "11.0",
+  quantity115: "11.5",
+  quantity120: "12.0",
+  quantitydefault: "default",
+};
 
 const CViewOrderTable = (props: { userData: TUserSession }) => {
   const { userData } = props;
@@ -57,14 +56,17 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
   const { getV1GetInstallment, installmentList } = useV1GetInstallment();
   const { getV1PostInstallment, setPayload, payload } = useV1PostInstallment();
 
-  const {
-    APILocalOrderGenerateBarcode
-  } = useV1OrderGenerateBarcode();
+  const { APILocalOrderGenerateBarcode } = useV1OrderGenerateBarcode();
 
   const { getV1DeleteInstallment } = useV1DeleteInstallment();
 
-  const { getV1EditInstallment, installmentParams, description, setDescription, setInstallmentParams } =
-    useV1EditInstallment();
+  const {
+    getV1EditInstallment,
+    installmentParams,
+    description,
+    setDescription,
+    setInstallmentParams,
+  } = useV1EditInstallment();
 
   const handleNext = () => {
     setCurrentSkip((prev) => (prev < totalPages ? prev + 1 : prev));
@@ -74,11 +76,7 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
     setCurrentSkip((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
-  const {
-    getV1GetLogsOrder,
-    orderLogs,
-    setOrderLogs
-  } = useV1GetLogs();
+  const { getV1GetLogsOrder, orderLogs, setOrderLogs } = useV1GetLogs();
 
   const paginationNumbers = Array.from(
     {
@@ -129,7 +127,8 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
         </h2>
         <div className="gap-x-2 mb-5">
           <p className="text-black">
-            Order type: {`${orderUser?.type === "on_hand_layaway" ? "Inhand": "Pre-ordered"}`}
+            Order type:{" "}
+            {`${orderUser?.type === "on_hand_layaway" ? "Inhand" : "Pre-ordered"}`}
           </p>
           <p className="text-black">
             Full name:{" "}
@@ -188,47 +187,45 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
             />
             <button
               className="bg-blue-600 text-white cursor-pointer px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-  onClick={async () => {
-    Swal.fire({
-      title: "Posting customer's payment, please wait...",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+              onClick={async () => {
+                Swal.fire({
+                  title: "Posting customer's payment, please wait...",
+                  allowOutsideClick: false,
+                  didOpen: () => {
+                    Swal.showLoading();
+                  },
+                });
 
-    try {
-      await getV1PostInstallment({
-        orderid: orderUser?.orderid!,
-      });
-      Swal.close(); // or show a success modal if needed
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Something went wrong while adding the payment.",
-      });
-    }
-  }}
+                try {
+                  await getV1PostInstallment({
+                    orderid: orderUser?.orderid!,
+                  });
+                  Swal.close(); // or show a success modal if needed
+                } catch (error) {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong while adding the payment.",
+                  });
+                }
+              }}
             >
               Add Payment
             </button>
-            {
-              ((orderUser?.estatustype !== EParamsDefault.success) && (orderUser?.estatustype !== EParamsDefault.ondelivery))
-              &&
-            <button
-              className="bg-orange-600 text-white cursor-pointer px-4 py-2 rounded-lg hover:bg-orange-700 transition"
-              onClick={() => {
-                APILocalOrderGenerateBarcode({
-                  session: userData as any,
-                  orderid: orderUser?.orderid as string || ""
-                });
-              }}
-            >
-              Generate order QR Codes 
-            </button>
-            }
-
+            {orderUser?.estatustype !== EParamsDefault.success &&
+              orderUser?.estatustype !== EParamsDefault.ondelivery && (
+                <button
+                  className="bg-orange-600 text-white cursor-pointer px-4 py-2 rounded-lg hover:bg-orange-700 transition"
+                  onClick={() => {
+                    APILocalOrderGenerateBarcode({
+                      session: userData as any,
+                      orderid: (orderUser?.orderid as string) || "",
+                    });
+                  }}
+                >
+                  Generate order QR Codes
+                </button>
+              )}
           </div>
           <table className="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
             <thead className="bg-blue-100 text-gray-700">
@@ -274,7 +271,7 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
                       <button
                         className="cursor-pointer"
                         onClick={() => {
-                            setSelectedInstallment(installment); 
+                          setSelectedInstallment(installment);
                           setEditModal(true);
                         }}
                       >
@@ -295,21 +292,19 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
                       </button>
                     </td>
                     <td className="py-3 px-6 text-l text-black font-medium">
-
-                        {installment?.description || "none"}
-                      
+                      {installment?.description || "none"}
                     </td>
-                      {editModal && selectedInstallment && (
-                        <CViewOrderEditPaymentModal
-                          setEditModal={setEditModal}
-                          installmentParams={installmentParams}
-                          setInstallmentParams={setInstallmentParams}
-                          getV1EditInstallment={getV1EditInstallment}
-                          installment={selectedInstallment}
-                          description={description}
-                          setDescription={setDescription}
-                        />
-                      )}
+                    {editModal && selectedInstallment && (
+                      <CViewOrderEditPaymentModal
+                        setEditModal={setEditModal}
+                        installmentParams={installmentParams}
+                        setInstallmentParams={setInstallmentParams}
+                        getV1EditInstallment={getV1EditInstallment}
+                        installment={selectedInstallment}
+                        description={description}
+                        setDescription={setDescription}
+                      />
+                    )}
                   </tr>
                 ))
               ) : (
@@ -326,37 +321,53 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
           </table>
         </div>
 
-<div className="mt-4 overflow-x-auto">
-  <h1 className="font-bold mb-2 text-blue-500">Item logs</h1>
-  <table className="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
-    <thead className="bg-gray-100 text-gray-700">
-      <tr>
-        <th className="py-3 px-6 text-left text-sm font-semibold">Date logged</th>
-        <th className="py-3 px-6 text-left text-sm font-semibold">Product name</th>
-        <th className="py-3 px-6 text-left text-sm font-semibold">Product size</th>
-      </tr>
-    </thead>
-    <tbody>
-      {orderLogs && orderLogs.length > 0 ? (
-        orderLogs.map((log, index) => (
-          <tr key={index} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} border-t`}>
-            <td className="py-3 px-6 text-sm text-gray-800">
-              {new Date(log.logdate).toLocaleString("en-PH")}
-            </td>
-            <td className="py-3 px-6 text-sm text-black">{log.title || "Unknown"}</td>
-            <td className="py-3 px-6 text-sm text-blue-600 font-medium">{quantityMap[`${log.size}`]}</td>
-          </tr>
-        ))
-      ) : (
-        <tr>
-          <td colSpan={4} className="py-4 px-6 text-center text-gray-500">
-            No logs available.
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </table>
-</div>
+        <div className="mt-4 overflow-x-auto">
+          <h1 className="font-bold mb-2 text-blue-500">Item logs</h1>
+          <table className="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-gray-100 text-gray-700">
+              <tr>
+                <th className="py-3 px-6 text-left text-sm font-semibold">
+                  Date logged
+                </th>
+                <th className="py-3 px-6 text-left text-sm font-semibold">
+                  Product name
+                </th>
+                <th className="py-3 px-6 text-left text-sm font-semibold">
+                  Product size
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderLogs && orderLogs.length > 0 ? (
+                orderLogs.map((log, index) => (
+                  <tr
+                    key={index}
+                    className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} border-t`}
+                  >
+                    <td className="py-3 px-6 text-sm text-gray-800">
+                      {new Date(log.logdate).toLocaleString("en-PH")}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-black">
+                      {log.title || "Unknown"}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-blue-600 font-medium">
+                      {quantityMap[`${log.size}`]}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="py-4 px-6 text-center text-gray-500"
+                  >
+                    No logs available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <div className="w-full overflow-x-auto whitespace-nowrap">
           <h1 className="text-blue-500 font-bold mb-2">Customer's order</h1>
@@ -668,10 +679,7 @@ const CViewOrderTable = (props: { userData: TUserSession }) => {
             {`>`}
           </button>
         </div>
-
       </div>
-
-      
     </>
   );
 };

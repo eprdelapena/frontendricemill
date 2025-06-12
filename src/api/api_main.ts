@@ -2,32 +2,37 @@ import { EParamsDefault } from "@/enum/main_enum";
 import {
   TDataGetAdmin,
   TDataGetInstallment,
+  TDataGetLending,
   TDataGetMonthlyIncome,
   TDataGetOrderUser,
   TDataGetPendingOrders,
   TDataGetProducts,
   TDataLogTable,
   TParamsDeleteInstallment,
+  TParamsDeleteLending,
   TParamsDeleteLogTable,
   TParamsDeleteOrderUser,
   TParamsDeleteProduct,
   TParamsDeleteUser,
   TParamsEditAdmin,
-  TParamsEditInstallment,
+  TParamsEditLending,
   TParamsEditProduct,
   TParamsEditStatusOrderUser,
   TParamsGenerateBarcode,
   TParamsGetAdmin,
-  TParamsGetInstallment,
+  TParamsGetLending,
   TParamsGetLogTable,
   TParamsGetMonthlyIncome,
   TParamsGetOrderUser,
   TParamsGetPendingOrders,
   TParamsGetProducts,
+  TParamsInstallmentEdit,
+  TParamsInstallmentGet,
+  TParamsInstallmentPost,
   TParamsLogin,
   TParamsOrderGenerateBarcode,
   TParamsPostExpense,
-  TParamsPostInstallment,
+  TParamsPostLending,
   TParamsPostOrderUser,
   TParamsPostProduct,
   TParamsRegister,
@@ -169,14 +174,14 @@ class NextClient {
   }
 
   public async mainGetInstallment(
-    payload: TParamsGetInstallment,
+    payload: TParamsInstallmentGet,
     config: TRequestConfig,
   ): Promise<TResponseMainAPI<TDataGetInstallment[]>> {
     return await this.client.post("/v9/get/installment", payload, config);
   }
 
   public async mainPostInstallment(
-    payload: TParamsPostInstallment,
+    payload: TParamsInstallmentPost,
     config: TRequestConfig,
   ): Promise<TResponseMainAPI> {
     return await this.client.post("/v9/post/installment", payload, config);
@@ -190,7 +195,7 @@ class NextClient {
   }
 
   public async mainEditInstallment(
-    payload: TParamsEditInstallment,
+    payload: TParamsInstallmentEdit,
     config: TRequestConfig,
   ): Promise<TResponseMainAPI> {
     return await this.client.post("/v9/edit/installment", payload, config);
@@ -207,7 +212,11 @@ class NextClient {
     payload: TParamsOrderGenerateBarcode,
     config: TRequestConfig,
   ): Promise<TResponseMainAPI> {
-    return await this.client.post("/v9/order_item_generate_barcode", payload, config);
+    return await this.client.post(
+      "/v9/order_item_generate_barcode",
+      payload,
+      config,
+    );
   }
 
   public async mainGetLog(
@@ -231,19 +240,61 @@ class NextClient {
     return await this.client.post("/v9/delete/log", payload, config);
   }
 
-  public async mainDownloadOrderTable(config: TRequestConfig): Promise<unknown> {
+  public async mainPostLending(
+    payload: TParamsPostLending,
+    config: TRequestConfig,
+  ): Promise<TResponseMainAPI<unknown>> {
+    return await this.client.post("/v9/post/lending", payload, config);
+  }
+
+  public async mainEditLending(
+    payload: TParamsEditLending,
+    config: TRequestConfig,
+  ): Promise<TResponseMainAPI<unknown>> {
+    return await this.client.post("/v9/edit/lending", payload, config);
+  }
+
+  public async mainGetLending(
+    payload: TParamsGetLending,
+    config: TRequestConfig,
+  ): Promise<TResponseMainAPI<unknown>> {
+    return await this.client.post("/v9/get/lending", payload, config);
+  }
+
+  public async mainDeleteLending(
+    payload: TParamsDeleteLending,
+    config: TRequestConfig,
+  ): Promise<TResponseMainAPI<unknown>> {
+    return await this.client.post("/v9/delete/lending", payload, config);
+  }
+
+  public async mainDownloadLending(
+    config: TRequestConfig,
+  ): Promise<TResponseMainAPI<TDataGetLending[]>> {
+    return await this.client.post("/v9/download_lending", {}, config);
+  }
+
+  public async mainDownloadOrderTable(
+    config: TRequestConfig,
+  ): Promise<unknown> {
     return await this.client.get("/v9/download/ordertable", config);
   }
 
-  public async mainDownloadOrderUserTable(config: TRequestConfig): Promise<unknown> {
+  public async mainDownloadOrderUserTable(
+    config: TRequestConfig,
+  ): Promise<unknown> {
     return await this.client.get("/v9/download/orderusertable", config);
   }
 
-  public async mainDownloadProductTable(config: TRequestConfig): Promise<unknown> {
+  public async mainDownloadProductTable(
+    config: TRequestConfig,
+  ): Promise<unknown> {
     return await this.client.get("/v9/download/producttable", config);
   }
 
-  public async mainDownloadInstallmentTable(config: TRequestConfig): Promise<unknown> {
+  public async mainDownloadInstallmentTable(
+    config: TRequestConfig,
+  ): Promise<unknown> {
     return await this.client.get("/v9/download/installmenttable", config);
   }
 }

@@ -19,20 +19,27 @@ const COrdersTableBody = (props: {
       <td className="py-2 px-4 text-center text-black">
         {new Date(order.orderdate).toLocaleDateString()}
       </td>
-     <td className={`py-2 px-4 text-center font-semibold ${(Number(order.totalcost) - Number(order.cuurentpayment)) > 0 ? "text-red-500" : "text-green-500" } `}>
-
-        {
-          (Number(order.totalcost) - Number(order.cuurentpayment)) > 0 
-          ?
-            <>{(Number(order.totalcost) - Number(order.cuurentpayment) ).toLocaleString() } ₱</> 
-          :
+      <td
+        className={`py-2 px-4 text-center font-semibold ${Number(order.totalcost) - Number(order.cuurentpayment) > 0 ? "text-red-500" : "text-green-500"} `}
+      >
+        {Number(order.totalcost) - Number(order.cuurentpayment) > 0 ? (
+          <>
+            {(
+              Number(order.totalcost) - Number(order.cuurentpayment)
+            ).toLocaleString()}{" "}
+            ₱
+          </>
+        ) : (
           <>PAID</>
-        }
-       
+        )}
       </td>
-                  <td className={`py-2 px-4 text-center text-black font-semibold ${order.type === "in_transit_layaway" ? "text-violet-500" : "text-blue-500"} uppercase`}>{order.type === "in_transit_layaway" ? "PRE-ORDERED" : "IN-HAND"}</td>
+      <td
+        className={`py-2 px-4 text-center text-black font-semibold ${order.type === "in_transit_layaway" ? "text-violet-500" : "text-blue-500"} uppercase`}
+      >
+        {order.type === "in_transit_layaway" ? "PRE-ORDERED" : "IN-HAND"}
+      </td>
 
-            <td className="py-2 px-4 text-center text-black">{order.orderid}</td>
+      <td className="py-2 px-4 text-center text-black">{order.orderid}</td>
 
       <td className="py-2 px-4 text-center text-black">
         {order.receiverfirstname} {order.receiverlastname}
@@ -72,8 +79,9 @@ const COrdersTableBody = (props: {
       <td className="py-2 px-4 text-center text-black">{order.province}</td>
       <td className="py-2 px-4 text-center text-black">{order.municity}</td>
       <td className="py-2 px-4 text-center text-black">{order.address}</td>
-      <td className="py-2 px-4 text-center text-black">{order.receivermobile}</td>
-
+      <td className="py-2 px-4 text-center text-black">
+        {order.receivermobile}
+      </td>
 
       <td className="py-2 px-4">
         <button

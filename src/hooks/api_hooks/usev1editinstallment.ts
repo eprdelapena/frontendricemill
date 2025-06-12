@@ -1,6 +1,6 @@
 import Instance_ApiLocal from "@/api/api_local";
 import { EAPIStatusCodes } from "@/enum/main_enum";
-import { TParamsEditInstallment } from "@/schema/main_schema";
+import { TParamsInstallmentEdit } from "@/schema/main_schema";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -9,7 +9,7 @@ const useV1EditInstallment = () => {
   const [installmentParams, setInstallmentParams] = useState<string>("0");
   const [description, setDescription] = useState<string>("");
   const getV1EditInstallment = async (
-    params: Omit<TParamsEditInstallment, "installment">,
+    params: Omit<TParamsInstallmentEdit, "payment">,
     callbackFunction?: (...args: any[]) => any,
   ) => {
     if (installmentParams && isNaN(Number(installmentParams))) {
@@ -24,8 +24,7 @@ const useV1EditInstallment = () => {
 
     const response = await Instance_ApiLocal.localEditInstallment({
       ...params,
-      installment: Number(installmentParams) > 0 ? installmentParams : undefined,
-      description: description.length !== 0 ? description : undefined
+      payment: Number(installmentParams) > 0 ? installmentParams : undefined,
     });
 
     if (response.status !== EAPIStatusCodes.success) {

@@ -26,7 +26,7 @@ const useV1PostOrderUser = () => {
     address: undefined,
     originsite: undefined,
     downpayment: undefined,
-    type: "on_hand_layaway"
+    type: "on_hand_layaway",
   });
 
   const getV1PostOrderUser = async (params: {

@@ -1,6 +1,7 @@
 import {
   TDataGetAdmin,
   TDataGetInstallment,
+  TDataGetLending,
   TDataGetMonthlyIncome,
   TDataGetOrderUser,
   TDataGetPendingOrders,
@@ -8,26 +9,30 @@ import {
   TDataLogTable,
   TDataViewOrderItem,
   TParamsDeleteInstallment,
+  TParamsDeleteLending,
   TParamsDeleteLogTable,
   TParamsDeleteOrderUser,
   TParamsDeleteProduct,
   TParamsDeleteUser,
   TParamsEditAdmin,
-  TParamsEditInstallment,
+  TParamsEditLending,
   TParamsEditProduct,
   TParamsEditStatusOrderUser,
   TParamsGenerateBarcode,
   TParamsGetAdmin,
-  TParamsGetInstallment,
+  TParamsGetLending,
   TParamsGetLogTable,
   TParamsGetMonthlyIncome,
   TParamsGetOrderUser,
   TParamsGetPendingOrders,
   TParamsGetProducts,
+  TParamsInstallmentEdit,
+  TParamsInstallmentGet,
+  TParamsInstallmentPost,
   TParamsLogin,
   TParamsOrderGenerateBarcode,
   TParamsPostExpense,
-  TParamsPostInstallment,
+  TParamsPostLending,
   TParamsPostOrderUser,
   TParamsPostProduct,
   TParamsRegister,
@@ -172,7 +177,7 @@ class CApiLocal extends AxiosService {
   }
 
   async localGetInstallment(
-    data: TParamsGetInstallment,
+    data: TParamsInstallmentGet,
   ): Promise<TResponseMainAPI<TDataGetInstallment[]>> {
     return await this.sendByPost({
       url: "/api/admin/get_installment",
@@ -180,8 +185,40 @@ class CApiLocal extends AxiosService {
     });
   }
 
+  async localPostLending(data: TParamsPostLending): Promise<TResponseMainAPI> {
+    return await this.sendByPost({
+      url: "/api/admin/post_lending",
+      data,
+    });
+  }
+
+  async localGetLending(
+    data: TParamsGetLending,
+  ): Promise<TResponseMainAPI<TDataGetLending[]>> {
+    return await this.sendByPost({
+      url: "/api/admin/get_lending",
+      data,
+    });
+  }
+
+  async localEditLending(data: TParamsEditLending): Promise<TResponseMainAPI> {
+    return await this.sendByPost({
+      url: "/api/admin/edit_lending",
+      data,
+    });
+  }
+
+  async localDeleteLending(
+    data: TParamsDeleteLending,
+  ): Promise<TResponseMainAPI> {
+    return await this.sendByPost({
+      url: "/api/admin/delete_lending",
+      data,
+    });
+  }
+
   async localPostInstallment(
-    data: TParamsPostInstallment,
+    data: TParamsInstallmentPost,
   ): Promise<TResponseMainAPI> {
     return await this.sendByPost({
       url: "/api/admin/post_installment",
@@ -199,7 +236,7 @@ class CApiLocal extends AxiosService {
   }
 
   async localEditInstallment(
-    data: TParamsEditInstallment,
+    data: TParamsInstallmentEdit,
   ): Promise<TResponseMainAPI> {
     return await this.sendByPost({
       url: "/api/admin/edit_installment",
@@ -214,14 +251,18 @@ class CApiLocal extends AxiosService {
     });
   }
 
-  async localOrderGenerateBarcode(data: TParamsOrderGenerateBarcode): Promise<any> {
+  async localOrderGenerateBarcode(
+    data: TParamsOrderGenerateBarcode,
+  ): Promise<any> {
     return await this.sendByPost({
       url: "/api/admin/order_item_generate_barcode",
       data,
     });
   }
 
-  async localGetLog(data: Partial<TParamsGetLogTable>): Promise<TResponseMainAPI<TDataLogTable[]>> {
+  async localGetLog(
+    data: Partial<TParamsGetLogTable>,
+  ): Promise<TResponseMainAPI<TDataLogTable[]>> {
     return await this.sendByPost({
       url: "/api/admin/get_log",
       data,

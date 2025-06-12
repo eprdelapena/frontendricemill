@@ -36,13 +36,13 @@ const CSummaryTableBody = (props: {
 }) => {
   const { index, logs, getV1GetLogs } = props;
 
-
-  const {
-    getV1DeleteLogs
-  } = useV1DeleteLogs(getV1GetLogs);
+  const { getV1DeleteLogs } = useV1DeleteLogs(getV1GetLogs);
 
   return (
-    <tr key={index} className={`border-t ${logs.mode === "incoming" ? "bg-green-300/50" : "bg-red-300/50"}`}>
+    <tr
+      key={index}
+      className={`border-t ${logs.mode === "incoming" ? "bg-green-300/50" : "bg-red-300/50"}`}
+    >
       <td className="py-2 px-4 text-center text-black ">
         {new Date(logs.logdate).toLocaleDateString()}
       </td>
@@ -56,24 +56,18 @@ const CSummaryTableBody = (props: {
           View breakdown
         </button>
       </td> */}
-      <td className={`py-2 px-4 text-center font-semibold ${logs.mode === "incoming" ? "text-green-700" : "text-red-700"}`}>
+      <td
+        className={`py-2 px-4 text-center font-semibold ${logs.mode === "incoming" ? "text-green-700" : "text-red-700"}`}
+      >
         {logs.mode.toLocaleUpperCase()}
       </td>
-      <td className="py-2 px-4 text-center text-black ">
-        {logs.productid}
-      </td>
-      <td className="py-2 px-4 text-center text-black ">
-        {logs.itemid}
-      </td>
+      <td className="py-2 px-4 text-center text-black ">{logs.productid}</td>
+      <td className="py-2 px-4 text-center text-black ">{logs.itemid}</td>
       <td className="py-2 px-4 text-center text-black ">
         {logs?.orderid || "--"}
       </td>
-      <td className="py-2 px-4 text-center text-black ">
-        {logs.category}
-      </td>
-      <td className="py-2 px-4 text-center text-black ">
-        {logs.title}
-      </td>
+      <td className="py-2 px-4 text-center text-black ">{logs.category}</td>
+      <td className="py-2 px-4 text-center text-black ">{logs.title}</td>
       <td className="py-2 px-4 text-center text-black ">
         {quantityMap[`${logs.size}`]}
       </td>
@@ -85,11 +79,11 @@ const CSummaryTableBody = (props: {
       </td>
 
       <td className="py-2 px-4 text-center  ">
-        <button 
+        <button
           className="cursor-pointer text-red-700 font-semibold"
           onClick={() => {
-            getV1DeleteLogs(logs.itemid)
-          }}  
+            getV1DeleteLogs(logs.itemid);
+          }}
         >
           DELETE
         </button>

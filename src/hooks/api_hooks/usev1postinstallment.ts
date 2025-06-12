@@ -1,69 +1,75 @@
 import Instance_ApiLocal from "@/api/api_local";
 import { EAPIStatusCodes } from "@/enum/main_enum";
-import { TParamsPostInstallment } from "@/schema/main_schema";
-import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { TDataGetLending } from "@/schema/main_schema"
+import { useState } from "react"
 import Swal from "sweetalert2";
 
-const useV1PostInstallment = () => {
-  const [payload, setPayload] = useState<
-    Partial<Omit<TParamsPostInstallment, "orderid">>
-  >({
-    amount: undefined,
+const useV1PostInstallment = (lendingData: TDataGetLending, callbackFunction?: ()  => any, setPostInstallmentModal?: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const [payload, setPayload] = useState<TDataGetLending>({
+    ...lendingData,
+    payment: "0.00"
   });
-  const getV1PostInstallment = async (
-    params: Pick<TParamsPostInstallment, "orderid">,
-    callBackFunction?: (params?: any) => any,
-  ) => {
-    const { amount } = payload;
-    const { orderid } = params;
 
-    if (Number(amount) <= 0 || isNaN(Number(amount))) {
-      await Swal.fire({
-        title: "Error",
-        text: "Amount field must be of type number",
-        icon: "error",
-        confirmButtonText: "Try again",
+  const postInstallment = async () => {
+    try{
+      if(isNaN(Number(payload.payment)) || Number(payload.payment) === 0 ||  !/^\d+(\.\d{1,2})?$/.test(payload.payment)){
+        Swal.fire({
+          title: "Error",
+          text: "Payment must be a number greater than 0 and must not exceed two decimal places",
+          icon: "error",
+          confirmButtonText: "Try again",
+        });
+        return;
+      }
+      Swal.fire({
+        title: "Processing...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
       });
-      return;
-    }
-
-    const response = await Instance_ApiLocal.localPostInstallment({
-      amount: payload.amount!,
-      orderid,
-    });
-
-    if (response.status !== EAPIStatusCodes.success) {
-      await Swal.fire({
-        title: "Error",
-        text: "Something went wrong please try again later",
-        icon: "error",
-        confirmButtonText: "Try again",
+      const response = await Instance_ApiLocal.localPostInstallment({
+        transactionid: payload.transactionid,
+        payment: payload.payment
       });
-      await signOut();
-      return;
-    }
+      Swal.close();
 
-    await Swal.fire({
+      if(response.status !== EAPIStatusCodes.success){
+        Swal.fire({
+          title: "Error",
+          text: "Error processing your request please try again later",
+          icon: "error",
+          confirmButtonText: "Try again",
+        });
+        return;
+      }
+
+      if(callbackFunction){
+        callbackFunction();
+      }
+      if (setPostInstallmentModal) {
+        setPostInstallmentModal(false);
+      }
+
+    Swal.fire({
       title: "Success",
-      text: "Successfully posted installment payment",
+      text: "Installment successfully posted",
       icon: "success",
       confirmButtonText: "Confirm",
     });
 
-    if (callBackFunction) {
-      callBackFunction();
     }
-
-    window.location.reload();
-    return;
-  };
+    catch(error){
+      console.error(error);
+      return error;
+    }
+  }
 
   return {
-    getV1PostInstallment,
+    postInstallment,
     payload,
-    setPayload,
-  };
-};
+    setPayload
+  }
+}
 
 export default useV1PostInstallment;

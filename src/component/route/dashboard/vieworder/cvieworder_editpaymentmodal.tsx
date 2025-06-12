@@ -18,9 +18,8 @@ const CViewOrderEditPaymentModal = (props: {
   ) => Promise<void>;
   installment: TDataGetInstallment;
   description: string;
-  setDescription: React.Dispatch<React.SetStateAction<string>>
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  
   const {
     getV1EditInstallment,
     setEditModal,
@@ -31,8 +30,6 @@ const CViewOrderEditPaymentModal = (props: {
     installmentParams,
   } = props;
 
-
-    
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black/20 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">

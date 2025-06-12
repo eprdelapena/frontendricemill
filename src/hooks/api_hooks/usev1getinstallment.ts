@@ -2,7 +2,7 @@ import Instance_ApiLocal from "@/api/api_local";
 import { EAPIStatusCodes } from "@/enum/main_enum";
 import {
   TDataGetInstallment,
-  TParamsGetInstallment,
+  TParamsInstallmentGet,
 } from "@/schema/main_schema";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
@@ -12,20 +12,20 @@ const useV1GetInstallment = () => {
     [],
   );
 
-  const getV1GetInstallment = async (params: TParamsGetInstallment) => {
+  const getInstallment = async (params: TParamsInstallmentGet) => {
     const response = await Instance_ApiLocal.localGetInstallment(params);
 
-    if (response.status !== EAPIStatusCodes.success) {
-      await signOut();
-      return;
-    }
+    // if (response.status !== EAPIStatusCodes.success) {
+    //   await signOut();
+    //   return;
+    // }
 
     setInstallmentList(response.data!);
     return;
   };
 
   return {
-    getV1GetInstallment,
+    getInstallment,
     installmentList,
     setInstallmentList,
   };

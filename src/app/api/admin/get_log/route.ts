@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { TParamsGetAdmin, TParamsGetLogTable, TUserSession } from "@/schema/main_schema";
+import {
+  TParamsGetAdmin,
+  TParamsGetLogTable,
+  TUserSession,
+} from "@/schema/main_schema";
 import client from "@/api/api_main";
 import { EAPIStatusCodes } from "@/enum/main_enum";
 import { getServerSession } from "next-auth";

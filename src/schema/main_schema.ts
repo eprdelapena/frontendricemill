@@ -1,45 +1,102 @@
+import { EParamsDefault } from "@/enum/main_enum";
+
+export type TDataGetLending = {
+  id: number;
+  agentcode: string;
+  transactionid: string;
+  transactiondate: Date;
+  fullname: string;
+  address: string;
+  mobile: string;
+  email: string;
+  balance: string;
+  payment: string;
+};
+
+//MW: MW_v9_post_lending and v9_post_lending
+export type TParamsPostLending = {
+  fullname: string;
+  address?: string;
+  mobile?: string;
+  email?: string;
+  balance?: string;
+  transactiondate?: Date;
+};
+
+//MW: MW_v9_edit_lending and v9_edit_lending
+export type TParamsEditLending = {
+  transactionid: string;
+  fullname?: string;
+  transactiondate?: Date;
+  address?: string;
+  mobile?: string;
+  email?: string;
+  balance?: string;
+};
+
+//MW: MW_v9_delete_lending and v9_delete_lending
+export type TParamsDeleteLending = {
+  transactionid: string;
+};
+
+//MW: MW_v9_get_lending and v9_get_lending
+export type TParamsGetLending = {
+  skip?: number;
+  searchCategory?:
+    | EParamsDefault.transactionid
+    | EParamsDefault.fullname
+    | EParamsDefault.all;
+  searchText?: string;
+  searchStatus?:
+    | EParamsDefault.paid
+    | EParamsDefault.unpaid
+    | EParamsDefault.all;
+  begin?: Date;
+  end?: Date;
+};
+
 export type TParamsGetLogTable = {
-  begin: string | Date,
-  end: string | Date,
-  searchCategory: "itemid" | "fullname" | "mode" | "orderid",
-  searchText: string,
-  skip: number
-}
+  begin: string | Date;
+  end: string | Date;
+  searchCategory: "itemid" | "fullname" | "mode" | "orderid";
+  searchText: string;
+  skip: number;
+};
 
 export type TParamsDeleteLogTable = {
-  itemid: string,
-}
+  itemid: string;
+};
 
 export type TParamsGetPendingOrders = {
-  productid: number,
-  skip: number,
-  type: string,
-}
+  productid: number;
+  skip: number;
+  type: string;
+};
 
 export type TDataGetPendingOrders = {
-  orderid: string,
-  itemquantity: number,
-}
+  orderid: string;
+  itemquantity: number;
+};
 
 export type TDataLogTable = {
-  id: number,
-  category: string,
-  productid: number,
-  itemid: string,
-  title: string,
-  price: string,
-  cost: string,
-  size: string,
-  mode: string,
-  orderid: string,
-  logdate: string,
-}
+  id: number;
+  category: string;
+  productid: number;
+  itemid: string;
+  title: string;
+  price: string;
+  cost: string;
+  size: string;
+  mode: string;
+  orderid: string;
+  logdate: string;
+};
 
 export type TParamsOrderGenerateBarcode = {
-  productid: number,
-  orderid: string,
-  sizecategory: string,
-}
+  productid: number;
+  orderid: string;
+  sizecategory: string;
+};
 
 export type TParamsEditProduct = {
   productid: number;
@@ -72,17 +129,16 @@ export type TParamsEditProduct = {
   quantitydefault?: number;
 };
 
-export type TParamsGetInstallment = {
-  orderid: string;
+export type TParamsInstallmentGet = {
+  transactionid: string;
 };
 
 export type TDataGetInstallment = {
   id: number;
-  orderid: string;
-  username: string;
-  installment: string;
-  installmentdate: string;
-  description: string;
+  paymentid: string,
+  transactionid: string,
+  payment: string,
+  regdate: string,
 };
 
 export type TParamsEditAdmin = {
@@ -399,22 +455,19 @@ export type TParamsGetOrderUser = {
   skip: number;
 };
 
-export type TParamsPostInstallment = {
-  orderid: string;
-  amount: string;
+export type TParamsInstallmentPost = {
+  payment: string;
+  transactionid: string;
 };
 
 export type TParamsDeleteInstallment = {
-  id: number;
-  orderid: string;
+  paymentid: string;
+  transactionid: string;
 };
 
-export type TParamsEditInstallment = {
-  installment?: string;
-  id: number;
-  orderid: string;
-  description?: string;
-
+export type TParamsInstallmentEdit = {
+  payment?: string;
+  paymentid: string;
 };
 
 export type TParamsGenerateBarcode = {

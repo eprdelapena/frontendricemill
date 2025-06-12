@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { TParamsDeleteLogTable, TParamsGetAdmin, TParamsGetLogTable, TUserSession } from "@/schema/main_schema";
+import {
+  TParamsDeleteLogTable,
+  TParamsGetAdmin,
+  TParamsGetLogTable,
+  TUserSession,
+} from "@/schema/main_schema";
 import client from "@/api/api_main";
 import { EAPIStatusCodes } from "@/enum/main_enum";
 import { getServerSession } from "next-auth";

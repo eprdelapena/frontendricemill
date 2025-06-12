@@ -21,7 +21,7 @@ const CProductTableBody = (props: {
       <table className="w-full bg-white shadow-md rounded-lg">
         <thead className="bg-gray-200">
           <tr>
-          <th className="py-2 px-4 text-center text-black uppercase">
+            <th className="py-2 px-4 text-center text-black uppercase">
               Product image
             </th>
             <th className="py-2 px-4 text-center text-black uppercase">
@@ -92,7 +92,7 @@ const CProductTableBody = (props: {
                 </th> */}
               </>
             )}
-                        {!["admin_level_one", "admin_viewer"].includes(eaccounttype) && (
+            {!["admin_level_one", "admin_viewer"].includes(eaccounttype) && (
               <th className="py-2 px-4 text-center text-black uppercase">
                 Edit
               </th>
@@ -103,9 +103,7 @@ const CProductTableBody = (props: {
                 Delete
               </th>
             )}
-
           </tr>
-          
         </thead>
         <tbody>
           {productList.length > 0 ? (

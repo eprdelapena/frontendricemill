@@ -14,7 +14,6 @@ import useV1DownloadProductTable from "@/hooks/api_hooks/usev1downloadproducttab
 const totalPages = 9999;
 const pageSize = 5;
 
-
 const CSummaryTable = () => {
   // const { incomeList, setPayload, getV1GetMonthlyIncome, payload } =
   //   useV1GetMonthlyIncome();
@@ -22,24 +21,24 @@ const CSummaryTable = () => {
   // useEffect(() => {
   //   getV1GetMonthlyIncome();
   // }, []);
-  const [initialPayload, setInitialPayload] = useState<Partial<TParamsGetLogTable>>({
+  const [initialPayload, setInitialPayload] = useState<
+    Partial<TParamsGetLogTable>
+  >({
     searchCategory: undefined,
     searchText: "",
-  })
-  
+  });
+
   const {
     logs,
     payload,
     setPayload,
     getV1GetLogs,
     currentSkip,
-    setCurrentSkip
+    setCurrentSkip,
   } = useV1GetLogs();
 
-
-
   useEffect(() => {
-    getV1GetLogs()
+    getV1GetLogs();
   }, [currentSkip, payload]);
 
   const handleNext = () => {
@@ -60,21 +59,13 @@ const CSummaryTable = () => {
     (_, i) => i + 1 + Math.floor((currentSkip - 1) / pageSize) * pageSize,
   );
 
-  const {
-    getV1DownloadInstallmentTable
-  } = useV1DownloadInstallmentTable();
+  const { getV1DownloadInstallmentTable } = useV1DownloadInstallmentTable();
 
-  const {
-    getV1DownloadOrderTable
-  } = useV1DownloadOrderTable();
+  const { getV1DownloadOrderTable } = useV1DownloadOrderTable();
 
-  const {
-    getV1DownloadOrderUserTable
-  } = useV1DownloadOrderUserTable();
+  const { getV1DownloadOrderUserTable } = useV1DownloadOrderUserTable();
 
-  const {
-    getV1DownloadProductTable
-  } = useV1DownloadProductTable();
+  const { getV1DownloadProductTable } = useV1DownloadProductTable();
 
   return (
     <div className="p-6 bg-white min-h-screen">
@@ -82,7 +73,6 @@ const CSummaryTable = () => {
 
       {/* Search Filters */}
       <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">
-        
         <input
           type="date"
           className="rounded-lg p-2 text-black w-full md:w-auto border-solid border-black border-[1px]"
@@ -107,9 +97,8 @@ const CSummaryTable = () => {
         />
       </div>
 
-        {/* Search Filters */}
-        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">
-        
+      {/* Search Filters */}
+      <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">
         <select
           className="rounded-lg p-2 text-black w-full md:w-auto border-solid border-black border-[1px]"
           value={initialPayload?.searchCategory || "Select search category"}
@@ -118,34 +107,32 @@ const CSummaryTable = () => {
             setInitialPayload((prev) => ({
               ...prev,
               searchCategory: selectedValue as "itemid" | "orderid" | "mode",
-              searchText: undefined
-            }))
+              searchText: undefined,
+            }));
           }}
         >
-          <option value="" >Select search category</option>
+          <option value="">Select search category</option>
           <option value="itemid">QR Code ID</option>
           <option value="orderid">Order ID</option>
           <option value="mode">Mode</option>
         </select>
-        {
-          initialPayload?.searchCategory === "mode"
-          ?
+        {initialPayload?.searchCategory === "mode" ? (
           <select
-          className="rounded-lg p-2 text-black w-full md:w-auto border-solid border-black border-[1px]"
-          value={initialPayload?.searchText || "Select mode"}
-          onChange={(e) => {
-            const selectedValue = e.target.value;
-            setInitialPayload((prev) => ({
-              ...prev,
-              searchText: selectedValue
-            }))
-          }}
-        >
-          <option value="">Select mode</option>
-          <option value="incoming">Incoming</option>
-          <option value="outgoing">Outgoing</option>
-        </select>
-          :
+            className="rounded-lg p-2 text-black w-full md:w-auto border-solid border-black border-[1px]"
+            value={initialPayload?.searchText || "Select mode"}
+            onChange={(e) => {
+              const selectedValue = e.target.value;
+              setInitialPayload((prev) => ({
+                ...prev,
+                searchText: selectedValue,
+              }));
+            }}
+          >
+            <option value="">Select mode</option>
+            <option value="incoming">Incoming</option>
+            <option value="outgoing">Outgoing</option>
+          </select>
+        ) : (
           <input
             type="text"
             className="rounded-lg p-2 text-black w-full md:w-auto border-solid border-black border-[1px]"
@@ -153,11 +140,11 @@ const CSummaryTable = () => {
             onChange={(e) => {
               setInitialPayload((prev) => ({
                 ...prev,
-                searchText: e.target.value
-              }))
+                searchText: e.target.value,
+              }));
             }}
           />
-        }
+        )}
 
         <button
           className="border rounded-lg p-2 w-full md:w-auto bg-blue-500 text-white cursor-pointer"
@@ -165,8 +152,8 @@ const CSummaryTable = () => {
             setPayload((prev) => ({
               ...prev,
               searchText: initialPayload.searchText,
-              searchCategory: initialPayload.searchCategory
-            }))
+              searchCategory: initialPayload.searchCategory,
+            }));
           }}
         >
           Search
@@ -174,46 +161,43 @@ const CSummaryTable = () => {
       </div>
 
       <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">
-
-<button
-  type="button"
-  className="border rounded-lg p-2 w-full md:w-auto bg-green-500 text-white cursor-pointer"
-  onClick={() => {
-    getV1DownloadProductTable();
-  }}
->
-  Download product table
-</button>
-<button
-  type="button"
-  className="border rounded-lg p-2 w-full md:w-auto bg-yellow-500 text-white cursor-pointer"
-  onClick={() => {
-    getV1DownloadOrderUserTable();
-  }}
->
-  Download order user's table
-</button>
-<button
-  type="button"
-  className="border rounded-lg p-2 w-full md:w-auto bg-orange-500 text-white cursor-pointer"
-  onClick={() => {
-    getV1DownloadOrderTable();
-  }}
->
-  Download order's table
-</button>
-<button
-  type="button"
-  className="border rounded-lg p-2 w-full md:w-auto bg-violet-500 text-white cursor-pointer"
-  onClick={() => {
-    getV1DownloadInstallmentTable();
-  }}
->
-  Download installment table
-</button>
-
-
-</div>
+        <button
+          type="button"
+          className="border rounded-lg p-2 w-full md:w-auto bg-green-500 text-white cursor-pointer"
+          onClick={() => {
+            getV1DownloadProductTable();
+          }}
+        >
+          Download product table
+        </button>
+        <button
+          type="button"
+          className="border rounded-lg p-2 w-full md:w-auto bg-yellow-500 text-white cursor-pointer"
+          onClick={() => {
+            getV1DownloadOrderUserTable();
+          }}
+        >
+          Download order user's table
+        </button>
+        <button
+          type="button"
+          className="border rounded-lg p-2 w-full md:w-auto bg-orange-500 text-white cursor-pointer"
+          onClick={() => {
+            getV1DownloadOrderTable();
+          }}
+        >
+          Download order's table
+        </button>
+        <button
+          type="button"
+          className="border rounded-lg p-2 w-full md:w-auto bg-violet-500 text-white cursor-pointer"
+          onClick={() => {
+            getV1DownloadInstallmentTable();
+          }}
+        >
+          Download installment table
+        </button>
+      </div>
 
       {/* Orders Table */}
       <div className="overflow-x-auto w-full">
@@ -258,7 +242,12 @@ const CSummaryTable = () => {
           <tbody>
             {logs.length > 0 ? (
               logs.map((logs, index) => (
-                <CSummaryTableBody key={index} logs={logs} index={index} getV1GetLogs={getV1GetLogs}/>
+                <CSummaryTableBody
+                  key={index}
+                  logs={logs}
+                  index={index}
+                  getV1GetLogs={getV1GetLogs}
+                />
               ))
             ) : (
               <tr className="border-t">

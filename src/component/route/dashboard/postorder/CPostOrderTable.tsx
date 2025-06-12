@@ -43,7 +43,7 @@ const CPostOrderTable = (props: { userData: TUserSession }) => {
           <button
             className="border rounded-lg p-2 w-full md:w-auto bg-blue-500 text-white cursor-pointer"
             onClick={() => {
-              if(currentCart.length === 0){
+              if (currentCart.length === 0) {
                 Swal.fire({
                   title: "Error",
                   text: "Your current cart is empty, please add items first to the cart from the product page",

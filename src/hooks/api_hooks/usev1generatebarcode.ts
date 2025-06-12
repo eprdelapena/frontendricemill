@@ -14,7 +14,10 @@ const useV1GenerateBarcode = () => {
     session: Session | null,
   ) => {
     const currentToken = (session?.user as TUserSession)?.token;
-    console.log(`${EParamsDefault.IPAddress}:3001/v9/generate_barcode`, "Barcode link")
+    console.log(
+      `${EParamsDefault.IPAddress}:3001/v9/generate_barcode`,
+      "Barcode link",
+    );
     Swal.fire({
       title: "Loading",
       text: "Please wait while we prepare your QR Code...",
@@ -36,30 +39,30 @@ const useV1GenerateBarcode = () => {
         body: JSON.stringify({
           productid: product.productid,
           sizecategory,
-          quantity
+          quantity,
         }),
       },
     );
- 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
 
-      link.href = url;
-      link.download = `${product.title}_${product.productid}_qr.xlsx`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
 
-// Optionally close the loading modal
-Swal.close();
+    link.href = url;
+    link.download = `${product.title}_${product.productid}_qr.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+
+    // Optionally close the loading modal
+    Swal.close();
   };
 
   return {
     APILocalGenerateBarcode,
-    quantity, 
-    setQuantity
+    quantity,
+    setQuantity,
   };
 };
 

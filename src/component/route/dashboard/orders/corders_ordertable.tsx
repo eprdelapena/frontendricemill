@@ -29,19 +29,18 @@ const COrdersTable = () => {
     orderUserList,
   } = useV1GetOrderUser();
 
-
   useEffect(() => {
     getV1GetOrderUser();
   }, [currentSkip, payload]);
-
-
 
   return (
     <div className="p-6 bg-white min-h-screen">
       <h2 className="text-2xl font-bold mb-4 text-black">List of orders</h2>
 
-                <div className="flex flex-col ">
-          <label className="text-sm  block text-black ">Select search category: </label>
+      <div className="flex flex-col ">
+        <label className="text-sm  block text-black ">
+          Select search category:{" "}
+        </label>
         <select
           className="border rounded-lg p-2 w-full border-black text-black border-solid border-[1px] my-2"
           defaultValue={"Select search category"}
@@ -55,10 +54,10 @@ const COrdersTable = () => {
           <option disabled>Select search category</option>
           <option value="username">By username</option>
           <option value="orderid">By order ID</option>
-           <option value="firstname">By first name</option>
-            <option value="lastname">By last name</option>
+          <option value="firstname">By first name</option>
+          <option value="lastname">By last name</option>
         </select>
-        </div>
+      </div>
 
       {/* Search Filters */}
       <div className="flex flex-col w-full lg:w-auto gap-y-2 text-black md:space-x-4 space-y-2 md:space-y-0 mb-4">
@@ -74,45 +73,42 @@ const COrdersTable = () => {
           }}
         />
 
-                <div className="flex flex-col ">
+        <div className="flex flex-col ">
           <label className="text-sm  block ">Select by order type: </label>
-        <select
-          className="border rounded-lg p-2 w-full lg:my-0 my-2 "
-          value={initialPayload?.type || ""}
-          onChange={(e) => {
-            setInitialPayload((prev) => ({
-              ...prev,
-              type: e.target.value,
-            }));
-          }}
-        >
-       
-          <option value="on_hand_layaway">Inhand</option>
-          <option value="in_transit_layaway">Pre-ordered</option>
-        </select>
+          <select
+            className="border rounded-lg p-2 w-full lg:my-0 my-2 "
+            value={initialPayload?.type || ""}
+            onChange={(e) => {
+              setInitialPayload((prev) => ({
+                ...prev,
+                type: e.target.value,
+              }));
+            }}
+          >
+            <option value="on_hand_layaway">Inhand</option>
+            <option value="in_transit_layaway">Pre-ordered</option>
+          </select>
         </div>
 
-
-
         <div className="flex flex-col">
-          <label className="text-sm  block mb-1">Select by order status: </label>
-        <select
-          className="border rounded-lg p-2 w-full mb-2"
-          defaultValue={"Select status"}
-          onChange={(e) => {
-            setInitialPayload((prev) => ({
-              ...prev,
-              estatustype: e.target.value,
-            }));
-          }}
-        >
-          {/* <option disabled>Select status</option> */}
-          <option value="pending">Pending</option>
-          <option value="ondelivery">On Delivery</option>
-          <option value="success">Success</option>
-          
-          
-        </select>
+          <label className="text-sm  block mb-1">
+            Select by order status:{" "}
+          </label>
+          <select
+            className="border rounded-lg p-2 w-full mb-2"
+            defaultValue={"Select status"}
+            onChange={(e) => {
+              setInitialPayload((prev) => ({
+                ...prev,
+                estatustype: e.target.value,
+              }));
+            }}
+          >
+            {/* <option disabled>Select status</option> */}
+            <option value="pending">Pending</option>
+            <option value="ondelivery">On Delivery</option>
+            <option value="success">Success</option>
+          </select>
         </div>
 
         <div className="flex flex-col">
@@ -162,7 +158,7 @@ const COrdersTable = () => {
               <th className="py-2 px-4 text-center text-black whitespace-nowrap">
                 Date
               </th>
-               <th className="py-2 px-4 text-center text-black whitespace-nowrap">
+              <th className="py-2 px-4 text-center text-black whitespace-nowrap">
                 Customer remaining balance
               </th>
               <th className="py-2 px-4 text-center text-black whitespace-nowrap">
@@ -204,7 +200,6 @@ const COrdersTable = () => {
                 Mobile
               </th>
 
-
               <th className="py-2 px-4 text-center text-black whitespace-nowrap">
                 Cancel
               </th>
@@ -230,8 +225,6 @@ const COrdersTable = () => {
           </tbody>
         </table>
       </div>
-
-
     </div>
   );
 };

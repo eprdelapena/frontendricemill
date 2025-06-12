@@ -11,7 +11,7 @@ const CServerHome = async () => {
   };
 
   if (session?.user?.token) {
-    redirect(EAdminRoutes.DASHBOARDORDERS);
+    redirect(EAdminRoutes.DASHBOARDLENDING);
   } else {
     redirect(EAdminRoutes.LOGIN);
   }

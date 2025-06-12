@@ -1,22 +1,20 @@
 import Instance_ApiLocal from "@/api/api_local";
 import { EParamsDefault } from "@/enum/main_enum";
-import { TDataGetProducts, TDataViewOrderItem, TUserSession } from "@/schema/main_schema";
+import {
+  TDataGetProducts,
+  TDataViewOrderItem,
+  TUserSession,
+} from "@/schema/main_schema";
 import { Session } from "next-auth";
 import Swal from "sweetalert2";
 
 const useV1OrderGenerateBarcode = () => {
-  const APILocalOrderGenerateBarcode = async (
-    params: {
-      sizecategory: string,
-      order: TDataViewOrderItem,
-      session: TUserSession | null,
-    }
-  ) => {
-    const {
-      sizecategory,
-      order,
-      session
-    } = params;
+  const APILocalOrderGenerateBarcode = async (params: {
+    sizecategory: string;
+    order: TDataViewOrderItem;
+    session: TUserSession | null;
+  }) => {
+    const { sizecategory, order, session } = params;
     const currentToken = (session as TUserSession)?.token;
 
     console.log("current params", params);
@@ -41,7 +39,7 @@ const useV1OrderGenerateBarcode = () => {
         body: JSON.stringify({
           productid: order.productid,
           orderid: order.orderid,
-          sizecategory
+          sizecategory,
         }),
       },
     );

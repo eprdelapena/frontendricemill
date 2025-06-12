@@ -12,7 +12,7 @@ const CServerLogin = async () => {
   };
 
   if (session?.user?.token) {
-    redirect(EAdminRoutes.DASHBOARDORDERS);
+    redirect(EAdminRoutes.DASHBOARDLENDING)
   }
 
   return (

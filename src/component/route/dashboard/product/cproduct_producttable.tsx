@@ -51,23 +51,23 @@ const CProductTable = (props: { userData: TUserSession }) => {
   );
 
   useEffect(() => {
-      const fetchData = async () => {
-    Swal.fire({
-      title: "Loading products please wait...",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    const fetchData = async () => {
+      Swal.fire({
+        title: "Loading products please wait...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
 
-    try {
-      await getV1GetProduct();
-    } finally {
-      Swal.close();
-    }
-  };
+      try {
+        await getV1GetProduct();
+      } finally {
+        Swal.close();
+      }
+    };
 
-  fetchData();
+    fetchData();
   }, [currentPage, payload]);
 
   return (

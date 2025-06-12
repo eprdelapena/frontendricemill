@@ -36,7 +36,6 @@ const CProductTableContent = (props: {
       <tr key={product.id} className="border-t">
         <td className="py-2 px-4 text-center ">
           <img className="w-[10em] h-[8em]" src={product?.image || ""} />
-
         </td>
         <td className="py-2 px-4 text-center ">
           <button
@@ -88,7 +87,6 @@ const CProductTableContent = (props: {
             </td>
           </>
         )}
-
 
         <td className="py-2 px-4 text-center text-black">{product.title}</td>
         <td className="py-2 px-4 text-center text-black">{product.category}</td>
@@ -235,7 +233,7 @@ const CProductTableContent = (props: {
           </>
         )}
 
-{!["admin_level_one", "admin_viewer"].includes(eaccounttype) && (
+        {!["admin_level_one", "admin_viewer"].includes(eaccounttype) && (
           <td className="py-2 px-4 text-center">
             <button
               className="text-blue-500 cursor-pointer"
@@ -317,14 +315,12 @@ const CProductTableContent = (props: {
           session={session}
         />
       )}
-      {
-        pendingOrderModal && (
-          <CPendingOrderModal
-            product={product}
-            setPendingOrderModal={setPendingOrderModal}
-          />
-        )
-      }
+      {pendingOrderModal && (
+        <CPendingOrderModal
+          product={product}
+          setPendingOrderModal={setPendingOrderModal}
+        />
+      )}
     </>
   );
 };

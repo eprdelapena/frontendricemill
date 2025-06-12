@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import {
-  TParamsGetAdmin,
-  TParamsGetInstallment,
+  TParamsEditLending,
+  TParamsInstallmentGet,
+  TParamsInstallmentPost,
   TUserSession,
 } from "@/schema/main_schema";
 import client from "@/api/api_main";
 import { EAPIStatusCodes } from "@/enum/main_enum";
-import { getServerSession } from "next-auth";
 import authOptions from "@/utils/next_auth";
+import { getServerSession } from "next-auth";
 import { getRequestConfig } from "@/utils/main_utils";
 
 export async function POST(req: Request) {
@@ -21,7 +22,8 @@ export async function POST(req: Request) {
       session: (session as unknown as { user: TUserSession }).user.token,
     });
 
-    const body: TParamsGetInstallment = await req.json();
+    const body: TParamsInstallmentGet = await req.json();
+
     const response = await client.mainGetInstallment(body, config);
 
     return NextResponse.json(response?.data, { status: 200 });

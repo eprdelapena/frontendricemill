@@ -59,7 +59,7 @@ const useV1DeleteInstallment = () => {
       callbackFunction();
     }
 
-    window.location.reload();
+
     return;
   };
 

@@ -17,7 +17,8 @@ const CProductBarcodeModal = (props: {
   const userData = useContext(UserDataContext);
   const { username } = userData as TUserSession;
 
-  const { APILocalGenerateBarcode, quantity, setQuantity } = useV1GenerateBarcode();
+  const { APILocalGenerateBarcode, quantity, setQuantity } =
+    useV1GenerateBarcode();
 
   const [selectedSize, setSelectedSize] = useState<string>("quantitydefault");
 
@@ -36,9 +37,7 @@ const CProductBarcodeModal = (props: {
             value={selectedSize}
             onChange={(e) => setSelectedSize(e.target.value)}
           >
-            <option value="quantitydefault">
-              DEFAULT
-            </option>
+            <option value="quantitydefault">DEFAULT</option>
             <option value="quantityxxs">Size XXS</option>
             <option value="quantityxs">Size XS</option>
             <option value="quantitys">Size S</option>

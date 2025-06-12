@@ -23,7 +23,6 @@ const CProductSearch = (props: {
   const [postModal, setPostModal] = useState<boolean>(false);
   const [expenseModal, setExpenseModal] = useState<boolean>(false);
 
-
   return (
     <>
       <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">

@@ -1,14 +1,39 @@
-
-
 export enum EParamsDefault {
-              IPAddress = "http://192.168.254.122",
+  IPAddress = "http://localhost",
   admin = "admin",
   user = "user",
   emptystring = "",
   succesStatusCode = 200,
-  success="success",
-  ondelivery="ondelivery",
-  pending="pending"
+  success = "success",
+  ondelivery = "ondelivery",
+  pending = "pending",
+  transactionid = "transactionid",
+
+  ongoing = "ongoing",
+
+  documentid = "documentid",
+  orderid = "orderid",
+  title = "title",
+  applicationid = "applicationid",
+  regdate = "regdate",
+  paymentid = "paymentid",
+  username = "username",
+  deliveryid = "deliveryid",
+  accounttype = "accounttype",
+  fullname = "fullname",
+
+  unpaid = "unpaid",
+  paid = "paid",
+  extractionid = "extractionid",
+  position = "position",
+  email = "email",
+  companyname = "companyname",
+  truckplate = "truckplate",
+  status = "status",
+  affliation = "affliation",
+  all = "all",
+  permittee = "permittee",
+  location = "location",
 }
 
 export enum EAccountType {
@@ -18,6 +43,7 @@ export enum EAccountType {
 
 export enum EAdminRoutes {
   LOGIN = "/login",
+  DASHBOARDLENDING = "/dashboard/lending",
   DASHBOARDORDERS = "/dashboard/orders",
   DASHBOARDPOSTORDER = "/dashboard/postorder",
   DASHBOARDPRODUCT = "/dashboard/product",

@@ -1,20 +1,19 @@
 import Instance_ApiLocal from "@/api/api_local";
 import { EParamsDefault } from "@/enum/main_enum";
-import { TDataGetProducts, TDataViewOrderItem, TUserSession } from "@/schema/main_schema";
+import {
+  TDataGetProducts,
+  TDataViewOrderItem,
+  TUserSession,
+} from "@/schema/main_schema";
 import { Session } from "next-auth";
 import Swal from "sweetalert2";
 
 const useV1OrderGenerateBarcode = () => {
-  const APILocalOrderGenerateBarcode = async (
-    params: {
-      orderid: string,
-      session: TUserSession | null,
-    }
-  ) => {
-    const {
-      orderid,
-      session
-    } = params;
+  const APILocalOrderGenerateBarcode = async (params: {
+    orderid: string;
+    session: TUserSession | null;
+  }) => {
+    const { orderid, session } = params;
     const currentToken = (session as TUserSession)?.token;
 
     console.log("current params", params);
@@ -42,19 +41,19 @@ const useV1OrderGenerateBarcode = () => {
       },
     );
 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
 
-      link.href = url;
-      link.download = `${orderid}_qr.xlsx`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
+    link.href = url;
+    link.download = `${orderid}_qr.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
 
-// Optionally close the loading modal
-Swal.close();
+    // Optionally close the loading modal
+    Swal.close();
     return;
   };
 
