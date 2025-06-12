@@ -1,10 +1,11 @@
+"use client"
 
 import type React from "react"
 import ReactDOM from "react-dom"
-import { X, Calendar, Receipt, PencilIcon, Trash2 } from "lucide-react"
+import { X, Calendar, Receipt, Trash2, Loader } from "lucide-react"
 import useV1GetInstallment from "@/hooks/api_hooks/usev1getinstallment"
 import type { TDataGetLending } from "@/schema/main_schema"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import useV1DeleteInstallment from "@/hooks/api_hooks/usev1deleteinstallment"
 
 export type TDataGetInstallment = {
@@ -17,27 +18,50 @@ export type TDataGetInstallment = {
 }
 
 const CViewInstallmentModal = (props: {
-  setViewInstallmentModal: (value: React.SetStateAction<boolean>) => void;
+  setViewInstallmentModal: (value: React.SetStateAction<boolean>) => void
   getLending: () => any
   lendingData: TDataGetLending
 }) => {
   const { setViewInstallmentModal, lendingData, getLending } = props
   const { getInstallment, installmentList, setInstallmentList } = useV1GetInstallment()
-  const {getV1DeleteInstallment} = useV1DeleteInstallment();
+  const { getV1DeleteInstallment } = useV1DeleteInstallment()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isDeleting, setIsDeleting] = useState<string | null>(null)
 
   const callbackHandler = async () => {
+    setIsLoading(true)
     await Promise.all([
-        getInstallment({
-            transactionid: lendingData.transactionid,
-        }),
-        getLending()
-    ])
+      getInstallment({
+        transactionid: lendingData.transactionid,
+      }),
+      getLending(),
+    ]).finally(() => {
+      setIsLoading(false)
+    })
   }
+
   useEffect(() => {
+    setIsLoading(true)
     getInstallment({
       transactionid: lendingData.transactionid,
+    }).finally(() => {
+      setIsLoading(false)
     })
   }, [])
+
+  const handleDelete = (paymentId: string, transactionId: string) => {
+    setIsDeleting(paymentId)
+    getV1DeleteInstallment(
+      {
+        paymentid: paymentId,
+        transactionid: transactionId,
+      },
+      () => {
+        callbackHandler()
+        setIsDeleting(null)
+      },
+    )
+  }
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fade-in">
@@ -64,15 +88,23 @@ const CViewInstallmentModal = (props: {
         </div>
 
         {/* Table Content - Scrollable */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <div className="rounded-2xl border-[1px] border-black overflow-hidden shadow-lg">
+        <div className="flex-1 overflow-y-auto p-6 relative">
+          <div className="rounded-2xl border-[1px] border-black overflow-hidden shadow-lg relative">
+            {isLoading && (
+              <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="relative">
+                    <Receipt className="h-10 w-10 text-orange-500" />
+                    <Loader className="h-10 w-10 text-orange-500 absolute inset-0 animate-spin" />
+                  </div>
+                  <p className="text-lg font-bold text-orange-500 animate-pulse">Loading installments...</p>
+                </div>
+              </div>
+            )}
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-
-
-
                     <th className="py-4 px-6 text-left font-bold">
                       <div className="inline-flex items-center gap-2 whitespace-nowrap">
                         <Calendar className="h-4 w-4" />
@@ -85,16 +117,12 @@ const CViewInstallmentModal = (props: {
                         <span>Amount</span>
                       </div>
                     </th>
-
                     <th className="py-4 px-6 text-left font-bold">
                       <div className="inline-flex items-center gap-2 whitespace-nowrap">
                         <Trash2 className="h-4 w-4" />
-                        <span
- 
-                        >Delete</span>
+                        <span>Delete</span>
                       </div>
                     </th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -106,21 +134,28 @@ const CViewInstallmentModal = (props: {
                           index % 2 === 0 ? "bg-orange-50" : "bg-white"
                         } hover:bg-orange-100 transition-colors duration-150 animate-fade-in-delay-${(index % 6) + 1}`}
                       >
-                        <td className="py-4 px-6 border-t text-black border-gray-200">{new Date(item.regdate).toLocaleString()}</td>
-                        <td className="py-4 px-6 border-t text-black border-gray-200"> ₱ {Number(item.payment).toLocaleString()}</td>
-
+                        <td className="py-4 px-6 border-t text-black border-gray-200">
+                          {new Date(item.regdate).toLocaleString()}
+                        </td>
+                        <td className="py-4 px-6 border-t text-black border-gray-200">
+                          {" "}
+                          ₱ {Number(item.payment).toLocaleString()}
+                        </td>
                         <td className="py-4 px-6 border-t text-red-500 border-gray-200">
-                            <p 
-                                className="cursor-pointer"
-                                onClick={() => {
-                                    getV1DeleteInstallment({
-                                        paymentid: item.paymentid,
-                                        transactionid: item.transactionid
-                                    }, callbackHandler)
-                                }}    
+                          {isDeleting === item.paymentid ? (
+                            <div className="flex items-center gap-2">
+                              <Loader className="h-4 w-4 animate-spin" />
+                              <span className="text-orange-500">Deleting...</span>
+                            </div>
+                          ) : (
+                            <p
+                              className="cursor-pointer hover:text-red-700 flex items-center gap-1"
+                              onClick={() => handleDelete(item.paymentid, item.transactionid)}
                             >
-                                Delete
+                              <Trash2 className="h-4 w-4" />
+                              Delete
                             </p>
+                          )}
                         </td>
                       </tr>
                     ))
@@ -147,7 +182,7 @@ const CViewInstallmentModal = (props: {
                 <div>
                   <h4 className="text-lg font-bold">Total Amount</h4>
                   <p className="text-2xl font-bold text-orange-600">
-                  ₱
+                    ₱
                     {installmentList
                       .reduce((sum, item) => sum + Number.parseFloat(item.payment), 0)
                       .toLocaleString("en-US", { minimumFractionDigits: 2 })}

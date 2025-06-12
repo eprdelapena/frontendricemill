@@ -21,21 +21,21 @@ const CLendingTableBody = (props: {
   return (
     <tr key={index} className="border-t">
 
-      <td className="py-2 px-4 text-center text-black whitespace-nowrap">
+      <td className="py-2 px-4 text-sm  text-center text-black whitespace-nowrap">
         {new Date(lending?.transactiondate).toDateString() || ""}
       </td>
-      <td className="py-2 px-4 text-center text-black whitespace-nowrap">
+      <td className="py-2 px-4 text-sm  text-center text-black whitespace-nowrap">
         {lending?.transactionid || ""}
       </td>
       <td
-        className={`py-2 px-4 text-center font-semibold ${Number(lending.balance) - Number(lending.payment) > 0 ? "text-red-500" : "text-green-500"} `}
+        className={`py-2 px-4 text-center text-sm font-semibold ${Number(lending.balance) - Number(lending.payment) > 0 ? "text-red-500" : "text-green-500"} `}
       >
         {Number(lending.balance) - Number(lending.payment) > 0 ? (
           <>
             {(
               Number(lending.balance) - Number(lending.payment)
             ).toLocaleString()}{" "}
-            ₱
+            ₱ 
           </>
         ) : (
           <>PAID</>
@@ -43,14 +43,14 @@ const CLendingTableBody = (props: {
       </td>
 
       <td
-        className={`py-2 px-4  text-center text-green-500 font-semibold text-black uppercase`}
+        className={`py-2 px-4 text-sm  text-center text-green-500 font-semibold text-black uppercase`}
       >
-        {lending?.payment || "0.00"} ₱
+        {Number(lending?.payment || 0).toLocaleString() || "0.00"} ₱
       </td>
-      <td className="py-2 px-4 text-center text-black whitespace-nowrap">
+      <td className="py-2 px-4 text-sm  text-center text-black whitespace-nowrap">
         {lending?.fullname || ""}
       </td>
-      <td className="py-2 px-4 flex gap-x-4 font-semibold text-red-500 whitespace-nowrap">
+      <td className="py-2 px-4 flex text-sm  gap-x-4 font-semibold text-red-500 whitespace-nowrap">
         <p
           className="cursor-pointer"
           onClick={() => {
@@ -84,13 +84,13 @@ const CLendingTableBody = (props: {
           View payment history
         </p>
       </td>
-      <td className={`py-2 px-4  text-center text-black text-black uppercase`}>
+      <td className={`py-2 px-4 text-sm  text-center text-black text-black uppercase`}>
         {lending?.mobile || ""}
       </td>
-      <td className={`py-2 px-4  text-center text-black text-black`}>
+      <td className={`py-2 px-4 text-sm  text-center text-black text-black`}>
         {lending?.email || ""}
       </td>
-      <td className="py-2 px-4 text-center text-black whitespace-nowrap">
+      <td className="py-2 px-4 text-sm  text-center text-black whitespace-nowrap">
         {lending?.address || ""}
       </td>
       {lendingModal && (
